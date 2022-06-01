@@ -1,26 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app">
+    <Upload v-model="picture" />
+    <img src="picture" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue"
+import Upload from "./components/UploadImages.vue"
 
 export default {
-  name: "App",
+  name: "app",
   components: {
-    HelloWorld,
+    Upload,
+  },
+  data() {
+    return {
+      picture: null,
+    }
   },
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: #2c2d30;
+  font-size: 1.6rem;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo",
+    "メイリオ", "Osaka", "MS PGothic", arial, helvetica, clean, sans-serif;
+  line-height: 1.5;
 }
 </style>
