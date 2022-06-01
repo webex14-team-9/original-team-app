@@ -47,7 +47,7 @@ export default {
     },
     checkFile(file) {
       let result = true
-      const SIZE_LIMIT = 500000000
+      const SIZE_LIMIT = 500000000000000
 
       if (!file) {
         result = false
