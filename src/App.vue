@@ -1,23 +1,11 @@
 <template>
-  <div>
-    <div>
-      <Uploadtext />
-    </div>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view />
 </template>
 
-<script>
-import Uploadtext from "./components/Uploadtext.vue"
-export default {
-  components: {
-    Uploadtext,
-  },
-}
-</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
