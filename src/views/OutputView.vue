@@ -1,5 +1,5 @@
 <template>
-  <h3>投稿ページ</h3>
+  <h2>投稿ページ</h2>
 
   <div
     v-for="PostingContent in PostingContents"
@@ -10,11 +10,11 @@
     {{ PostingContent.name }}
 
     <p>prefecture</p>
-    <input type="text" />
+    <input v-model="PostingContents" type="text" />
     {{ PostingContent.prefecture }}
 
     <p>コメント</p>
-    <input type="text" />
+    <input v-model="PostingContents" type="text" />
     {{ PostingContent.comment }}
   </div>
 
