@@ -1,23 +1,21 @@
 <template>
   <h3>投稿ページ</h3>
 
-  <div v-for="PostingConstent in PostingContents" :v-bind:key="index">
+  <div
+    v-for="PostingContent in PostingContents"
+    v-bind:key="PostingContent.value"
+  >
+    <p>username</p>
+    <input v-model="PostingContents" type="text" />
+    {{ PostingContent.name }}
 
-      username
-      <input type="text" />
-      {{ PostingContent.name }} </br>
-      
-      prefecture
-      <input type="text"/>
-      {{PostingContent.prefecture}}</br>
+    <p>prefecture</p>
+    <input type="text" />
+    {{ PostingContent.prefecture }}
 
-      画像
-      <input type="image"/>
-      {{PostingContent.image}}</br>
-      
-      コメント
-      <input type="text"></br>
-      {{PostingContent.image}}
+    <p>コメント</p>
+    <input type="text" />
+    {{ PostingContent.comment }}
   </div>
 
   <button v-on:click="editing">投稿</button>
@@ -38,7 +36,6 @@ export default {
       const data = {
         name: "",
         prefecture: "",
-        img: "",
         comment: "",
       }
 
