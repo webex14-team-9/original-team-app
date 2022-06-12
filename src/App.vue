@@ -1,13 +1,21 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-    <router-link to="/Output">Output</router-link>
-  </nav>
-
-  <router-view />
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/output">About</router-link>
+    </nav>
+    <OutputView />
+    <router-view />
+  </div>
 </template>
-
+<script>
+// import OutputView from "./components/Output.vue"
+// export default {
+//   components: {
+//     OutputView,
+//   },
+// }
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

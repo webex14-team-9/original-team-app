@@ -4,17 +4,15 @@
   <div
     v-for="PostingContent in PostingContents"
     v-bind:key="PostingContent.value"
+    id="posting"
   >
-    <p>username</p>
-    <input v-model="PostingContents" type="text" />
+    <h4>username</h4>
     {{ PostingContent.name }}
 
-    <p>prefecture</p>
-    <input v-model="PostingContents" type="text" />
+    <h4>prefecture</h4>
     {{ PostingContent.prefecture }}
 
-    <p>コメント</p>
-    <input v-model="PostingContents" type="text" />
+    <h4>コメント</h4>
     {{ PostingContent.comment }}
   </div>
 
@@ -22,8 +20,8 @@
 </template>
 
 <script>
-import { collection, addDoc, getDocs } from "firebase/firestore"
-import { db } from "./firebase"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase.js"
 
 export default {
   data() {
@@ -32,21 +30,20 @@ export default {
     }
   },
   methods: {
-    editing() {
-      const data = {
-        name: "",
-        prefecture: "",
-        comment: "",
-      }
-
-      addDoc(this.PostingContents(db, "PostingContents"), data).then(() => {
-        this.PostingContents.push(data)
-      })
-    },
+    // editing() {
+    //   const data = {
+    //     name: null,
+    //     prefecture: null,
+    //     comment: null,
+    //   }
+    //   addDoc(this.PostingContents(db, "PostingContents"), data).then(() => {
+    //     this.PostingContents.push(data)
+    //   })
+    // },
   },
 
-  created() {
-    getDocs(collection(db, "PostingContents")).then((snapshot) => {
+  created: function () {
+    getDocs(collection(db, "demo")).then((snapshot) => {
       for (let i = 0; i < snapshot.docs.length; i++) {
         this.PostingContents.push(snapshot.docs[i].data())
       }
