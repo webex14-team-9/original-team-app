@@ -1,10 +1,24 @@
 <template>
   <div>
+
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/output">About</router-link>
     </nav>
     <OutputView />
+
+
+    <Uploadtext />
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>|
+      <router-link to="/Upload">画像アップロード</router-link>
+
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+
+    </nav>
     <router-view />
   </div>
 </template>

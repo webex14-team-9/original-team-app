@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
+
 import AboutView from "../views/AboutView.vue"
 import OutputView from "../views/OutputView.vue"
+
+import Uploadtext from "../views/Upload-text.vue"
+
 const routes = [
   {
     path: "/",
@@ -21,11 +25,15 @@ const routes = [
     name: "Output",
     component: OutputView,
   },
+  {
+    path: "/Upload",
+    name: "Uploadtext",
+    component: Uploadtext,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
-
 export default router
