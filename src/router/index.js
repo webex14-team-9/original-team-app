@@ -3,6 +3,11 @@ import HomeView from "../views/HomeView.vue"
 import AboutView from "../views/AboutView.vue"
 import LogInView from "../views/LogInView.vue"
 
+import AboutView from "../views/AboutView.vue"
+import OutputView from "../views/OutputView.vue"
+
+import Uploadtext from "../views/Upload-text.vue"
+
 const routes = [
   {
     path: "/",
@@ -18,6 +23,7 @@ const routes = [
     component: AboutView,
   },
   {
+
     path: "/my-page",
     name: "MyPage",
     component: AboutView,
@@ -26,6 +32,16 @@ const routes = [
     path: "/login",
     name: "LogIn",
     component: LogInView,
+
+    path: "/output",
+    name: "Output",
+    component: OutputView,
+  },
+  {
+    path: "/Upload",
+    name: "Uploadtext",
+    component: Uploadtext,
+
   },
 ]
 
@@ -33,5 +49,4 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
-
 export default router
