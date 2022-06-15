@@ -57,6 +57,8 @@
 </template>
 
 <script>
+//クラウドストレージ有効にする
+//
 export default {
   name: "Upload_text",
   data() {
