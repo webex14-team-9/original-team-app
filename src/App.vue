@@ -1,19 +1,11 @@
 <template>
-  <div>
-
-    <Uploadtext />
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>|
-      <router-link to="/Upload">画像アップロード</router-link>
-
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-
-    </nav>
-    <router-view />
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>|
+    <router-link to="/Upload">画像アップロード</router-link>
+    <router-link to="/Output">Output</router-link>
+  </nav>
+  <router-view />
 </template>
 
 <style>
@@ -26,7 +18,7 @@
 }
 
 nav {
-  padding: 30px;
+  padding: 40px;
 }
 
 nav a {

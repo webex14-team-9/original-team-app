@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
+import OutputView from "../views/OutputView.vue"
 import Uploadtext from "../views/Upload-text.vue"
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: "/Upload",
     name: "Uploadtext",
     component: Uploadtext,
+  },
+  {
+    path: "/Output",
+    name: "Output",
+    component: OutputView,
   },
 ]
 
