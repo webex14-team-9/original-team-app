@@ -38,6 +38,19 @@ body {
 
   <div>
 
+    <div>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/output">About</router-link> |
+      <router-link to="/my-page">MyPage</router-link>|
+      <router-link to="/logIn">logIn</router-link>
+    </div>
+  </div>
+  <router-view />
+</template>
+
+<script></script>
+
+
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/output">About</router-link>
@@ -75,18 +88,3 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-
-}
-</style>
