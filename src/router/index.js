@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
+import AboutView from "../views/AboutView.vue"
+import LogInView from "../views/LogInView.vue"
 
 import AboutView from "../views/AboutView.vue"
 import OutputView from "../views/OutputView.vue"
@@ -21,6 +23,16 @@ const routes = [
     component: AboutView,
   },
   {
+
+    path: "/my-page",
+    name: "MyPage",
+    component: AboutView,
+  },
+  {
+    path: "/login",
+    name: "LogIn",
+    component: LogInView,
+
     path: "/output",
     name: "Output",
     component: OutputView,
@@ -29,6 +41,7 @@ const routes = [
     path: "/Upload",
     name: "Uploadtext",
     component: Uploadtext,
+
   },
 ]
 
