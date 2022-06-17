@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import OutputView from "../views/OutputView.vue"
 import Uploadtext from "../views/Upload-text.vue"
+import ImageView from "../views/ImageView.vue"
 const routes = [
   {
     path: "/",
@@ -26,6 +27,11 @@ const routes = [
     path: "/Output",
     name: "Output",
     component: OutputView,
+  },
+  {
+    path: "/ImageView",
+    name: "ImageView",
+    component: ImageView,
   },
 ]
 

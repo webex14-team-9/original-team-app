@@ -1,43 +1,30 @@
-<template></template>
+<template>
+  <div>aaa</div>
+</template>
 
 <script>
-import { storage } from '@/plugins/storage'
+import { getStorage, ref, listAll } from "firebase/storage"
 
-export default {
+const storage = getStorage()
 
-      name:"Upload_image",
-      props:{
-          aritcle:{
-              type:Object,
-              required: true
-          },
-      },
-};
-  data() {
-    return {
-      thumbnail: this.article.thumbnail,
-      loading: true,
-      error: false,
-      dialog: false,
-      images: [],
-      selectedImage: '',
-      fileLoading: 0,
-    }
-  },
-   async created() {
-    try {
-      const storageRef = await storage.ref(`articles/${this.article.id}`)
-      const res = await storageRef.listAll()
-      res.items.forEach(itemRef => {
-        itemRef.getDownloadURL().then(url => {
-          this.images.push(url)
-        })
-      })
-    } catch(e) {
-      this.error = true
-      console.log(e)
-    } finally {
-      this.loading = false
-    }
-  },
+// Create a reference under which you want to list
+const listRef = ref(storage, "files/uid")
+
+// Find all the prefixes and items.
+listAll(listRef)
+  .then((res) => {
+    res.prefixes.forEach((folderRef) => {
+      // All the prefixes under listRef.
+      // You may call listAll() recursively on them.
+      console.log(folderRef)
+    })
+    res.items.forEach((itemRef) => {
+      // All the items under listRef.
+      console.log(itemRef)
+    })
+  })
+  .catch((error) => {
+    // Uh-oh, an error occurred!
+    console.log(error)
+  })
 </script>
