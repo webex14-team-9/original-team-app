@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import OutputView from "../views/OutputView.vue"
 import Uploadtext from "../views/Upload-text.vue"
-import ImageView from "../views/ImageView.vue"
+import Uploadtofb from "../views/Upload-tofb.vue"
+import ShowView from "../views/ShowView.vue"
 const routes = [
   {
     path: "/",
@@ -29,9 +30,14 @@ const routes = [
     component: OutputView,
   },
   {
-    path: "/ImageView",
-    name: "ImageView",
-    component: ImageView,
+    path: "/Upload-tofb",
+    name: "Upload-tofb",
+    component: Uploadtofb,
+  },
+  {
+    path: "/ShowView",
+    name: "ShowView",
+    component: ShowView,
   },
 ]
 

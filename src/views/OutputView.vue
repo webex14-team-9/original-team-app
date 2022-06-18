@@ -1,22 +1,19 @@
 <template>
   <h2>投稿ページ</h2>
-
   <div
     v-for="PostingContent in PostingContents"
     v-bind:key="PostingContent.value"
     id="posting"
   >
-    <h4>username</h4>
+    <h5 id="name">username</h5>
     {{ PostingContent.name }}
 
-    <h4>prefecture</h4>
+    <h5 id="prefecture">prefecture</h5>
     {{ PostingContent.prefecture }}
 
-    <h4>コメント</h4>
+    <h5 id="comment">コメント</h5>
     {{ PostingContent.comment }}
   </div>
-
-  <button v-on:click="editing">投稿</button>
 </template>
 
 <script>
@@ -29,23 +26,20 @@ export default {
       PostingContents: [],
     }
   },
-  methods: {
-    // editing() {
-    //   const data = {
-    //     name: null,
-    //     prefecture: null,
-    //     comment: null,
-    //   }
-    //   addDoc(this.PostingContents(db, "PostingContents"), data).then(() => {
-    //     this.PostingContents.push(data)
-    //   })
-    // },
-  },
-  created: function () {
-    getDocs(collection(db, "PostingContents")).then((snapshot) => {
-      for (let i = 0; i < snapshot.docs.length; i++) {
-        this.PostingContents.push(snapshot.docs[i].data())
-      }
+  methods: {},
+  // created: function () {
+  //   getDocs(collection(db, "PostingContents")).then((snapshot) => {
+  //     //for (let i = 0; i < snapshot.docs.length; i++){
+  //     this.PostingContents.push(snapshot.docs.data())
+  //   })
+  created() {
+    getDocs(collection(db, "PostimgCotents")).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.PostingContents.push({
+          //  id: doc.id,
+          //  ...doc.data(),
+        })
+      })
     })
   },
 }

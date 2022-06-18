@@ -5,52 +5,50 @@
     v-bind:key="PostingContent.value"
     id="posting"
   >
-    name:
     <input
       type="text"
       class="name"
       placeholder="your_name"
-      v-model="PostigContents.name"
+      v-model="PostingContents.name"
     />
 
-    prefecture:
     <input
       type="text"
       class="prefecture"
       placeholder="your_prefecture"
-      v-model="PostigContents.prefecture"
+      v-model="PostingContents.prefecture"
     />
 
-    comment:
     <input
       type="text"
       class="comment"
       placeholder="your_comment"
-      v-model="PostigContents.comment"
+      v-model="PostingContents.comment"
     />
   </div>
   <button v-on:click="postArticle">保存？</button>
 </template>
 
 <script>
-import { collection, addDoc, serverTimestamp } from "..firebase/firestore"
-import { db } from "./firebase"
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { db } from "../firebase"
 
 export default {
   data() {
     return {
-      name: "",
-      prefecture: "",
-      comment: "",
+      PostingContents: [],
     }
   },
   methods: {
     async postArticle() {
-      this.PostigContents = []
-      addDoc(collection(db, "PostigContents"), PostingContents).then((doc) => {
-        this.PostigContents.push({
+      //  const  PostingContent = [name,prefecture,comment]
+      addDoc(collection(db, "PostigContents")).then((doc) => {
+        this.PostingContents.push({
           id: doc.id,
           createdAt: serverTimestamp(),
+          name: this.name,
+          prefecture: this.prefecture,
+          comment: this.comment,
         })
       })
     },

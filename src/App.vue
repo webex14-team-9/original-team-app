@@ -4,6 +4,8 @@
     <router-link to="/about">About</router-link>|
     <router-link to="/Upload">画像アップロード</router-link>
     <router-link to="/Output">Output</router-link>
+    <router-link to="/Upload-tofb">Upload-tofb</router-link>
+    <router-link to="/ShowView">ShowView</router-link>
   </nav>
   <router-view />
 </template>
