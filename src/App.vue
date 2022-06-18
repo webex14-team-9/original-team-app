@@ -3,7 +3,6 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <!-- <router-link to="/Upload">Upload</router-link> | -->
       <router-link to="/main">main-page</router-link> |
     </nav>
   </div>

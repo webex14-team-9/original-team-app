@@ -8,3 +8,12 @@
     </div>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import main from "../views/HelloWorld.vue"
+export default {
+  path: "/main",
+  name: "main",
+}
+</script>
