@@ -23,19 +23,16 @@ export default {
       post: "",
     }
   },
-  methods:{
-
-    dataShow() {
-//     axios
-//       .get(
-//         "https://firestore.googleapis.com/v1/projects/vuejs-http-8f605/databases/(default)/documents/comments"
-//       )
-//       .then((response) => {
-//         this.posts = response.data.documents
-//       })
-//   },
-
-},}
+  dataShow() {
+    axios
+      .get(
+        "https://firestore.googleapis.com/v1/projects/vuejs-http-8f605/databases/(default)/documents/comments"
+      )
+      .then((response) => {
+        this.posts = response.data.documents
+      })
+  },
+}
 </script>
 
 <style></style>
