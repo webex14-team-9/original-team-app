@@ -23,7 +23,6 @@ const routes = [
     component: AboutView,
   },
   {
-
     path: "/my-page",
     name: "MyPage",
     component: AboutView,
@@ -41,7 +40,6 @@ const routes = [
     path: "/Upload",
     name: "Uploadtext",
     component: Uploadtext,
-
   },
 ]
 
