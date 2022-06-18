@@ -57,8 +57,11 @@
 </template>
 
 <script>
-//クラウドストレージ有効にする
-//
+import { getStorage, ref, uploadBytes } from "firebase/storage"
+
+const storage = getStorage()
+const storageRef = ref(storage, "some-child")
+
 export default {
   name: "Upload_text",
   data() {
@@ -74,32 +77,52 @@ export default {
     }
   },
   methods: {
-    onFileChange(e) {
-      const file = e.target.files[0]
-      const form_name = e.target.name
-      if (form_name == "first_image") {
-        this.form.first_image = file
-        this.form.first_image_name = file.name
-      }
-      if (form_name == "second_image") {
-        this.form.second_image = file
-        this.form.second_image_name = file.name
+    setImage(e) {
+      const files = this.$refs.file
+      const fileImg = files.files[0]
+      if (fileImg.type.startsWith("image/")) {
+        this.data.image = window.URL.createObjectURL(fileImg)
+        this.data.name = fileImg.name
+        this.data.type = fileImg.type
       }
     },
-    submit() {
-      const formData = new FormData()
-      for (let key in this.form) {
-        formData.append(key, this.form[key])
+    onFileChange(e) {
+      const files = e.target.files || e.dataTransfer.files
+      this.createImage(files[0])
+      // 拡張子で分ける（※.が1つの想定です）
+      const imgNameExe = files[0].name.split(".")
+
+      // 拡張子から前
+      let imgName = imgNameExe[0]
+
+      // 拡張子から後ろ
+      const imgExe = imgNameExe[1]
+
+      // 表示したいMaxのByte数（全角10文字、半角20文字）
+      const maxBytes = 20
+      const imgNameBytes = encodeURIComponent(imgName).replace(
+        /%../g,
+        "x"
+      ).length
+
+      // 画像ファイルとMax Byte数の比較
+      if (imgNameBytes > maxBytes) {
+        const zenkaku = imgNameBytes - imgName.length
+        if (zenkaku > 0) {
+          imgName = imgName.slice(0, maxBytes / 2 - imgName.length) + ".."
+        } else {
+          imgName = imgName.slice(0, maxBytes - imgNameBytes) + ".."
+        }
       }
 
-      // コンソールで確認
-      // for (item of formData) {
-      //   console.log(item)
-      // }
-
-      // axiosで送信処理を書く
-      // axios.post(apiUrl, formData)
+      // 短くカットしたものと.と拡張子の文字列の連結
+      imgName = imgName + "." + imgExe
+      this.img_name = imgName
     },
   },
+   // 'file' comes from the Blob or File API
+  uploadBytes(storageRef, file).then((snapshot) => {
+  console.log("Uploaded a blob or file!")
+  })
 }
 </script>
