@@ -11,9 +11,13 @@
 
 <script>
 // @ is an alias to /src
-import main from "../views/HelloWorld.vue"
+import main from "../views/main-page.vue"
+
 export default {
-  path: "/main",
-  name: "main",
+  data() {
+    return {
+      main,
+    }
+  },
 }
 </script>
