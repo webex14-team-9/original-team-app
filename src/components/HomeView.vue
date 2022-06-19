@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <form class="form" @submit.prevent="submitImg">
+    <form class="form" @submit.prevent="submitImg()">
       <input type="file" accept="img/*" @change="changeImg" />
       <button type="submit" class="button">click</button>
     </form>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import firebase from "@/plugins/firebase"
+
 export default {
   data() {
     return {
@@ -32,10 +34,17 @@ export default {
           this.postData.thumbnail = reader.result + ""
         }
         reader.readAsDataURL(this.thumbnail)
+        console.log("選択完了")
+        this.submitImg(this.thumbnail)
       }
     },
-    submitImg() {
-      // ここでsubmitする
+    submitImg(thumbnail) {
+      let storage = firebase.storage()
+      let storageRef = storage.ref().child("file.png")
+      storageRef
+        .put(thumbnail)
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error))
     },
   },
 }
