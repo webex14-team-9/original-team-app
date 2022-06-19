@@ -10,14 +10,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import main from "../views/main-page.vue"
 
 export default {
-  data() {
-    return {
-      main,
-    }
-  },
+  name: main,
 }
 </script>
