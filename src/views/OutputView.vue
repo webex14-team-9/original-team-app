@@ -32,14 +32,11 @@ export default {
   //     //for (let i = 0; i < snapshot.docs.length; i++){
   //     this.PostingContents.push(snapshot.docs.data())
   //   })
-  created() {
-    getDocs(collection(db, "PostimgCotents")).then((snapshot) => {
-      snapshot.forEach((doc) => {
-        this.PostingContents.push({
-          //  id: doc.id,
-          //  ...doc.data(),
-        })
-      })
+  Created: function () {
+    getDocs(collection(db, "PostingContents")).then((snapshot) => {
+      for (let i = 0; i < snapshot.docs.length; i++) {
+        this.PostingContents.push(snapshot.docs.data())
+      }
     })
   },
 }

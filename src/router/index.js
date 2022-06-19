@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue"
 import OutputView from "../views/OutputView.vue"
 import Uploadtext from "../views/Upload-text.vue"
 import Uploadtofb from "../views/Upload-tofb.vue"
-import ShowView from "../views/ShowView.vue"
+import imgView from "../views/imgView.vue"
 const routes = [
   {
     path: "/",
@@ -35,9 +35,9 @@ const routes = [
     component: Uploadtofb,
   },
   {
-    path: "/ShowView",
-    name: "ShowView",
-    component: ShowView,
+    path: "/imgView",
+    name: "imgView",
+    component: imgView,
   },
 ]
 
