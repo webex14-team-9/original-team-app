@@ -4,7 +4,7 @@
       <h2>旅ログ🐾</h2>
     </div>
     <div>
-      <button id="sign-up">ログイン</button>
+      <button onclick="location.href='Upload.vue'">投稿ページへ</button>
     </div>
   </div>
 </template>
