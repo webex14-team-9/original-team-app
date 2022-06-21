@@ -60,7 +60,7 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage"
 
 const storage = getStorage()
-const storageRef = ref(storage, "fbimages/")
+const storageRef = ref(storage, "")
 
 export default {
   name: "Upload_text",
@@ -133,3 +133,5 @@ export default {
   },
 }
 </script>
+
+<style></style>
