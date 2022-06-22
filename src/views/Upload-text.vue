@@ -38,19 +38,17 @@
           </span>
         </label>
       </div>
-      <div class="control">
-        <input
-          class="input"
-          type="text"
-          name="name"
-          v-model="form.name"
-          placeholder=""
-        />
-      </div>
-      <br />
+      <div class="border border-gray-900 rounded mb-4">
+        <textarea
+          class="w-full pt-4 pl-8 outline-none"
+          placeholder="XXXXへのメッセージ"
+          v-model="message"
+        ></textarea>
+        <br />
 
-      <div class="control">
-        <button class="button is-primary" @click="submit">投稿</button>
+        <div class="control">
+          <button class="button is-primary" @click="submit">投稿</button>
+        </div>
       </div>
     </div>
   </div>
@@ -58,7 +56,8 @@
 
 <script>
 import { getStorage, ref, uploadBytes } from "firebase/storage"
-
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "./firebase"
 const storage = getStorage()
 const storageRef = ref(storage, "")
 
@@ -73,6 +72,11 @@ export default {
         first_image_name: "---",
         second_image: null,
         second_image_name: "---",
+
+        user: "",
+        users: [],
+        channel_name: "",
+        message: "",
       },
     }
   },
