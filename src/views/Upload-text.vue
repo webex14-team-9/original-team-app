@@ -47,10 +47,18 @@
           placeholder="コメント"
           v-model="message"
         />
+        {{ message }}
         <br />
-
+        <input
+          class="w-full pt-4 pl-8 outline-none"
+          type="text"
+          name="review"
+          placeholder="観光した都道府県を入力してください"
+          v-model="place"
+        />
+        <p>{{ place }}</p>
         <div class="control">
-          <button class="button is-primary" v-onclick="submit">投稿</button>
+          <button class="button is-primary" v-onclick="postTweet">投稿</button>
         </div>
       </div>
     </div>
@@ -59,15 +67,9 @@
 
 <script>
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  uploadBytesResumable,
-} from "firebase/storage"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "./firebase"
+import { db } from "@/firebase"
 
 export default {
   name: "Upload_text",
@@ -80,73 +82,56 @@ export default {
         first_image_name: "---",
         second_image: null,
         second_image_name: "---",
-
         user: "",
         users: [],
         channel_name: "",
         message: "",
+        place: "",
       },
     }
   },
   methods: {
-    onFileChange(e) {
-      const file = e.target.files || e.dataTransfer.files
-      this.createImage(file[0])
-      // 拡張子で分ける（※.が1つの想定です）
-      const imgNameExe = file[0].name.split(".")
-
-      // 拡張子から前
-      let imgName = imgNameExe[0]
-
-      // 拡張子から後ろ
-      const imgExe = imgNameExe[1]
-
-      // 表示したいMaxのByte数（全角10文字、半角20文字）
-      const maxBytes = 20
-      const imgNameBytes = encodeURIComponent(imgName).replace(
-        /%../g,
-        "x"
-      ).length
-
-      // 画像ファイルとMax Byte数の比較
-      if (imgNameBytes > maxBytes) {
-        const zenkaku = imgNameBytes - imgName.length
-        if (zenkaku > 0) {
-          imgName = imgName.slice(0, maxBytes / 2 - imgName.length) + ".."
-        } else {
-          imgName = imgName.slice(0, maxBytes - imgNameBytes) + ".."
+    onFileUpload(file) {
+      const fileType = this.getFileType(file)
+      if (!fileType) {
+        this["flash/setFlash"]({
+          message: "ファイルタイプが不正です。",
+          type: "error",
+        })
+      }
+      const storageRef = storage.ref(
+        `articles/${this.article.id}/thumbnail.${fileType}`
+      )
+      const storage = getStorage()
+      const uploadTask = storageRef.put(file)
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          this.fileLoading = percentage
+        },
+        (err) => {
+          console.log(err)
+          this["flash/setFlash"]({
+            message: "ファイルのアップロードに失敗しました。",
+            type: "error",
+          })
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.fileLoading = 0
+            this.thumbnail = downloadURL
+          })
         }
-      }
-
-      // 短くカットしたものと.と拡張子の文字列の連結
-      imgName = imgName + "." + imgExe
-      this.img_name = imgName
+      )
     },
-    // createImage(file) {
-    //   const reader = new FileReader()
-    //   reader.onload = (e) => {
-    //     this.uploadedImage = e.target.result
-    //   }
-    //   reader.readAsDataURL(file)
-    // 'file' comes from the Blob or File API
-    //   uploadBytes(storageRef, file).then(() => {
-    //     console.log("Uploaded a blob or file!")
-    //   })
-    // },
-    setImage() {
-      const file = this.$refs.file
-      const fileImg = file.files[0]
-      if (fileImg.type.startsWith("image/")) {
-        this.data.image = window.URL.createObjectURL(fileImg)
-        this.data.name = fileImg.name
-        this.data.type = fileImg.type
-      }
-    },
-    submit() {
+    postTweet() {
+      addDoc(collection(db, "PostingContents"))
       const file = this.$refs.preview.files[0]
       const storage = getStorage()
       const storageRef = ref(storage, file.name)
-      const uploadTask = uploadBytesResumable(storageRef, file)
+      const uploadTask = uploadBytes(storageRef, file)
       const auth = getAuth()
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -162,6 +147,7 @@ export default {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log("Upload is" + progress + "% done")
           switch (snapshot.state) {
             case "paused":
               console.log("upload is paused")
