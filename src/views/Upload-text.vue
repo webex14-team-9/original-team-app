@@ -39,15 +39,16 @@
         </label>
       </div>
       <div class="border border-gray-900 rounded mb-4">
-        <textarea
+        <input
           class="w-full pt-4 pl-8 outline-none"
-          placeholder="XXXXへのメッセージ"
+          type="text"
+          placeholder="コメント"
           v-model="message"
-        ></textarea>
+        />
         <br />
 
         <div class="control">
-          <button class="button is-primary" @click="submit">投稿</button>
+          <button class="button is-primary" v-onclick="submit">投稿</button>
         </div>
       </div>
     </div>
@@ -55,11 +56,10 @@
 </template>
 
 <script>
-import { getStorage, ref, uploadBytes } from "firebase/storage"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "./firebase"
-const storage = getStorage()
-const storageRef = ref(storage, "")
 
 export default {
   name: "Upload_text",
@@ -134,6 +134,23 @@ export default {
         this.data.type = fileImg.type
       }
     },
+    postTewwt(){
+      const file=this.$refs.preview.files[0]
+      const storage=getStorage()
+      const storageRef=ref(storage, filename)
+      const uploadTask=uploadBytesresumable(storageRef, file)
+    }
+    getDownloadURL(uploadTask.anapthot.ref).then((downloadURL))=>{
+      console.log("File available at", downloadURL)
+      addDoc(collection(db,"cocktail?postforms"),{
+        date: new Date(),
+        user_name:this.uid,
+        text:this.post,
+        point:this.review,
+        image_url:downloadURL,
+      })
+      this.$router.push("/home")
+    }
   },
 }
 </script>
