@@ -58,7 +58,7 @@
         />
         <p>{{ place }}</p>
         <div class="control">
-          <button class="button is-primary" v-onclick="postTweet">投稿</button>
+          <button class="button is-primary" @click="sendMesseage">投稿</button>
         </div>
       </div>
     </div>
@@ -77,6 +77,7 @@ export default {
     return {
       title: "新規投稿",
       form: {
+        text: "",
         name: null,
         first_image: null,
         first_image_name: "---",
@@ -127,7 +128,7 @@ export default {
       )
     },
     postTweet() {
-      addDoc(collection(db, "PostingContents"))
+      addDoc(collection(db, "PostingContents")), {}
       const file = this.$refs.preview.files[0]
       const storage = getStorage()
       const storageRef = ref(storage, file.name)

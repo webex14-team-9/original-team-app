@@ -4,6 +4,7 @@
       <router-link to="/">home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/Upload">Upload</router-link> |
+      <router-link to="/TextUpload">TextUpload</router-link> |
     </nav>
   </div>
   <router-view />
