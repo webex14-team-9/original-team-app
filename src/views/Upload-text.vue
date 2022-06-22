@@ -38,7 +38,7 @@
           </span>
         </label>
       </div>
-      <div class="border border-gray-900 rounded mb-4">
+      <div class="comment">
         レビュー:
         <input
           class="w-full pt-4 pl-8 outline-none"
@@ -59,7 +59,13 @@
 
 <script>
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "./firebase"
 
@@ -116,17 +122,17 @@ export default {
       imgName = imgName + "." + imgExe
       this.img_name = imgName
     },
-    createImage(file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        this.uploadedImage = e.target.result
-      }
-      reader.readAsDataURL(file)
-      // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, file).then(() => {
-        console.log("Uploaded a blob or file!")
-      })
-    },
+    // createImage(file) {
+    //   const reader = new FileReader()
+    //   reader.onload = (e) => {
+    //     this.uploadedImage = e.target.result
+    //   }
+    //   reader.readAsDataURL(file)
+    // 'file' comes from the Blob or File API
+    //   uploadBytes(storageRef, file).then(() => {
+    //     console.log("Uploaded a blob or file!")
+    //   })
+    // },
     setImage() {
       const file = this.$refs.file
       const fileImg = file.files[0]
@@ -136,23 +142,60 @@ export default {
         this.data.type = fileImg.type
       }
     },
-    postTewwt(){
-      const file=this.$refs.preview.files[0]
-      const storage=getStorage()
-      const storageRef=ref(storage, filename)
-      const uploadTask=uploadBytesresumable(storageRef, file)
-    }
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL))=>{
-      console.log("File available at", downloadURL)
-      addDoc(collection(db,"travel"),{
-        date: new Date(),
-        user_name:this.uid,
-        text:this.post,
-        point:this.review,
-        image_url:downloadURL,
+    submit() {
+      const file = this.$refs.preview.files[0]
+      const storage = getStorage()
+      const storageRef = ref(storage, file.name)
+      const uploadTask = uploadBytesResumable(storageRef, file)
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log(user)
+          this.uid = user.uid
+        } else {
+          //
+        }
       })
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          switch (snapshot.state) {
+            case "paused":
+              console.log("upload is paused")
+              break
+            case "running":
+              console.log("upload is runnnig")
+              break
+          }
+        },
+        (error) => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              break
+            case "storage/canceled":
+              break
+            case "storage/unknown":
+              break
+          }
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL)
+            addDoc(collection(db, "travel"), {
+              date: new Date(),
+              user_name: this.uid,
+              text: this.post,
+              point: this.review,
+              image_url: downloadURL,
+            })
+          })
+        }
+      )
       this.$router.push("/home")
-    }
+    },
   },
 }
 </script>
