@@ -1,12 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import AboutView from "../views/AboutView.vue"
-import LogInView from "../views/LogInView.vue"
-
-import AboutView from "../views/AboutView.vue"
 import OutputView from "../views/OutputView.vue"
-
 import Uploadtext from "../views/Upload-text.vue"
+import LogInView from "../views/LogInView.vue"
+import UserProffile from "../views/UserProffile.vue"
 
 const routes = [
   {
@@ -23,16 +21,6 @@ const routes = [
     component: AboutView,
   },
   {
-
-    path: "/my-page",
-    name: "MyPage",
-    component: AboutView,
-  },
-  {
-    path: "/login",
-    name: "LogIn",
-    component: LogInView,
-
     path: "/output",
     name: "Output",
     component: OutputView,
@@ -41,7 +29,21 @@ const routes = [
     path: "/Upload",
     name: "Uploadtext",
     component: Uploadtext,
-
+  },
+  {
+    path: "/login",
+    name: "LogIn",
+    component: LogInView,
+  },
+  {
+    path: "/UserProffile",
+    name: "UserProffile",
+    component: UserProffile,
+  },
+  {
+    path: "/Output",
+    name: "Output",
+    component: OutputView,
   },
 ]
 

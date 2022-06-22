@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <button @click="logout">ログアウト</button>
-    <button @click="login">Googleアカウントでログイン</button>
-  </div>
+  <h2>ようこそ</h2>
+  <section class="login-content">
+    <div class="login-form">
+      <button v-on:click="home">Googleアカウントでログイン</button>
+    </div>
+    <div class="login-info"></div>
+  </section>
 </template>
 
 <script>
@@ -10,23 +13,31 @@ import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
-  signOut,
+  onAuthStateChanged,
 } from "firebase/auth"
+
 const provider = new GoogleAuthProvider()
 
 export default {
   data() {
-    console.log("何にもないよ")
     return {
-      token: "",
+      token: false,
     }
   },
   methods: {
-    login() {
+    home() {
       const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid
+          console.log(uid)
+        } else {
+          // User is signed out
+          // ...
+        }
+      })
       signInWithPopup(auth, provider)
         .then((result) => {
-          console.log("ログインできたで")
           const credential = GoogleAuthProvider.credentialFromResult(result)
           const token = credential.accessToken
           const user = result.user
@@ -46,21 +57,13 @@ export default {
           console.log(credential)
         })
     },
-    logout() {
-      const auth = getAuth()
-      signOut(auth)
-        .then(() => {
-          console.log("ログアウトできてます。")
-          // Sign-out successful.
-          return {
-            token: "",
-          }
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(`ログアウトに失敗しました、(${error})`)
-        })
-    },
   },
 }
 </script>
+
+<style>
+.login-content {
+  background-color: #135e45;
+  height: 500px;
+}
+</style>
