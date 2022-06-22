@@ -39,9 +39,11 @@
         </label>
       </div>
       <div class="border border-gray-900 rounded mb-4">
+        レビュー:
         <input
           class="w-full pt-4 pl-8 outline-none"
           type="text"
+          name="review"
           placeholder="コメント"
           v-model="message"
         />
@@ -140,9 +142,9 @@ export default {
       const storageRef=ref(storage, filename)
       const uploadTask=uploadBytesresumable(storageRef, file)
     }
-    getDownloadURL(uploadTask.anapthot.ref).then((downloadURL))=>{
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL))=>{
       console.log("File available at", downloadURL)
-      addDoc(collection(db,"cocktail?postforms"),{
+      addDoc(collection(db,"travel"),{
         date: new Date(),
         user_name:this.uid,
         text:this.post,
