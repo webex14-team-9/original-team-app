@@ -1,22 +1,24 @@
 <template>
-  <h2>投稿ページ</h2>
+  <div>
+    <h2>投稿ページ</h2>
 
-  <div
-    v-for="PostingContent in PostingContents"
-    v-bind:key="PostingContent.value"
-    id="posting"
-  >
-    <h4>username</h4>
-    {{ PostingContent.name }}
+    <div
+      v-for="PostingContent in PostingContents"
+      v-bind:key="PostingContent.value"
+      id="posting"
+    >
+      <h4>username</h4>
+      {{ PostingContent.name }}
 
-    <h4>prefecture</h4>
-    {{ PostingContent.prefecture }}
+      <h4>prefecture</h4>
+      {{ PostingContent.prefecture }}
 
-    <h4>コメント</h4>
-    {{ PostingContent.comment }}
+      <h4>コメント</h4>
+      {{ PostingContent.comment }}
+    </div>
+
+    <button v-on:click="editing">投稿</button>
   </div>
-
-  <button v-on:click="editing">投稿</button>
 </template>
 
 <script>

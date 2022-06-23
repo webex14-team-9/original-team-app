@@ -3,13 +3,8 @@ import AboutView from "../views/AboutView.vue"
 import LogInView from "../views/LogInView.vue"
 import UploadText from "../views/Upload-text.vue"
 import HomeView from "../views/HomeView.vue"
-import TextUpload from "../views/TextUpload.vue"
+
 const routes = [
-  {
-    path: "/TextUpload",
-    name: "TextUpload",
-    component: TextUpload,
-  },
   {
     path: "/",
     name: "Home",
