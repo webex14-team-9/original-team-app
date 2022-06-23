@@ -36,6 +36,8 @@ export default {
     },
     submitImg() {
       // ここでsubmitする
+      const file = this.$refs.preview.files[0]
+      this.url = URL.createObjectURL(file)
     },
   },
 }

@@ -39,7 +39,6 @@
         </label>
       </div>
       <div class="comment">
-        レビュー:
         <input
           class="w-full pt-4 pl-8 outline-none"
           type="text"
@@ -53,8 +52,8 @@
           class="w-full pt-4 pl-8 outline-none"
           type="text"
           name="review"
-          placeholder="観光した都道府県を入力してください"
-          v-model="place"
+          placeholder="観光した都道府県を入力!!"
+          v-model="prefecture"
         />
         <p>{{ place }}</p>
         <div class="control">
@@ -83,11 +82,11 @@ export default {
         first_image_name: "---",
         second_image: null,
         second_image_name: "---",
-        user: "",
+        username: "",
         users: [],
         channel_name: "",
         message: "",
-        place: "",
+        prefecture: "",
       },
     }
   },
@@ -128,16 +127,15 @@ export default {
       )
     },
     postTweet() {
-      addDoc(collection(db, "PostingContents")), {}
       const file = this.$refs.preview.files[0]
       const storage = getStorage()
       const storageRef = ref(storage, file.name)
       const uploadTask = uploadBytes(storageRef, file)
       const auth = getAuth()
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          console.log(user)
-          this.uid = user.uid
+      onAuthStateChanged(auth, (username) => {
+        if (username) {
+          console.log(username)
+          this.uid = username.uid
         } else {
           //
         }
@@ -171,12 +169,13 @@ export default {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL)
-            addDoc(collection(db, "travel"), {
+            addDoc(collection(db, "PostingContents"), {
               date: new Date(),
               user_name: this.uid,
-              text: this.post,
+              text: this.message,
               point: this.review,
               image_url: downloadURL,
+              prefecture: this.prefecture,
             })
           })
         }

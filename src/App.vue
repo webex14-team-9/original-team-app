@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="background">
     <nav>
       <router-link to="/">home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/Upload">Upload</router-link> |
       <router-link to="/TextUpload">TextUpload</router-link> |
+      <router-view />
     </nav>
   </div>
-  <router-view />
 </template>
 
 <style>
@@ -19,6 +19,16 @@
   color: #2c3e50;
 }
 
+.background {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-image: url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80%22%22");
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+}
 nav {
   padding: 30px;
 }
