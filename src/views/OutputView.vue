@@ -62,13 +62,50 @@ export default {
 </script>
 <style>
 .data {
-  background-color: #c5e6f0;
+  background-color: rgb(243, 245, 237);
+  padding: 30px;
+  opacity: 0.75;
+  text-align: center;
 }
 .data h3 {
   border-bottom: solid 1px;
-  width: 300px;
+  font-weight: 9000;
 }
-.data h4 {
-  margin-right: 960px;
+
+.title {
+  position: relative;
+  margin: 2em 0 2em 40px;
+  padding: 8px 15px;
+  background: #bdedfa;
+  border-radius: 30px;
+}
+.title:before {
+  font-family: FontAwesome;
+  content: "\f111";
+  position: absolute;
+  font-size: 15px;
+  left: -40px;
+  bottom: 0;
+  color: #bdedfa;
+}
+.title:after {
+  font-family: FontAwesome;
+  content: "\f111";
+  position: absolute;
+  font-size: 23px;
+  left: -23px;
+  bottom: 0;
+  color: #bdedfa;
+}
+.title p {
+  margin: 0;
+  padding: 0;
+}
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono%22");
+h2 {
+  font-family: "Ubuntu Mono", monospace;
+}
+.data h3 {
+  font-family: "Ubuntu Mono", monospace;
 }
 </style>
